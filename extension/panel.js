@@ -9,6 +9,73 @@
 
   const host = document.createElement("div");
   host.id = panelId;
+  const language = globalThis.chrome?.i18n?.getUILanguage?.() || navigator.language || "en";
+  const english = !/^zh(?:[-_]|$)/i.test(language);
+  const translations = {
+    "ChatGPT 对话批量删除": "ChatGPT Bulk Delete",
+    "批量删除对话": "Bulk delete chats",
+    "重新加载对话": "Reload chats",
+    "关闭面板": "Close panel",
+    "选择删除对象": "Choose what to delete",
+    "普通聊天": "Chats",
+    "项目内对话": "Project chats",
+    "整个项目": "Entire projects",
+    "搜索对话标题": "Search chat titles",
+    "项目": "Project",
+    "所有项目": "All projects",
+    "创建日期": "Creation date",
+    "不限日期": "Any date",
+    "早于": "Before",
+    "晚于": "After",
+    "日期范围": "Date range",
+    "从": "From",
+    "到": "To",
+    "清除": "Clear",
+    "停止加载": "Stop loading",
+    "全选": "Select all",
+    "对话列表": "Chat list",
+    "取消选择": "Clear selection",
+    "批量删除": "Bulk delete",
+    "删除后无法恢复。": "Deletion cannot be undone.",
+    "待删除对话": "Items to delete",
+    "返回": "Back",
+    "确认删除": "Confirm delete",
+    "停止删除": "Stop deleting",
+    "名称未识别的项目 ": "Unnamed project ",
+    "暂时没有找到对话。请确认已登录并打开左侧历史列表。": "No chats found. Sign in and open the history sidebar.",
+    "起始日期不能晚于结束日期。": "The start date must be on or before the end date.",
+    "这些对话没有创建日期。": "Creation dates are unavailable for these chats.",
+    "没有创建日期的对话已隐藏。": "Chats without a creation date are hidden.",
+    "搜索项目": "Search projects",
+    "没有找到项目": "No projects found",
+    "打开项目查看其中的对话": "Open a project to see its chats",
+    "没有符合条件的对话": "No matching chats",
+    "项目 · 暂无法删除": "Project · deletion unavailable",
+    "拖动连续选择": "Drag to select a range",
+    "拖动选中多条": "Drag to select multiple items",
+    "取消全选": "Deselect all",
+    "删除项目": "Delete projects",
+    "已停止删除": "Deletion stopped",
+    "页面或侧栏已变化": "The page or sidebar changed",
+    "对话归属已变化，请重新加载对话。": "This chat moved. Reload the list and try again.",
+    "对话": "chat",
+    "网页仍有菜单或弹窗打开": "Close the open menu or dialog and try again.",
+    "检测到你在操作网页，正在停止删除。": "Page interaction detected. Stopping deletion.",
+    "已停止加载对话。": "Loading stopped.",
+    "正在加载…": "Loading…",
+    "未找到对话，请打开左侧历史列表。": "No chats found. Open the history sidebar.",
+    "对话列表已变化。请重新加载对话后再试。": "The list changed. Reload and try again.",
+    "项目中的对话、指令和仅存于项目中的文件也会被删除。": "This also deletes project chats, instructions, and files stored only in the project.",
+    "正在停止，已提交的删除可能仍会完成。": "Stopping. Items already submitted may still be deleted.",
+    " 个项目": " projects",
+    " 条对话": " chats",
+    "待处理 · ": "Pending · ",
+    "已删除 · ": "Deleted · ",
+    "未确认结果 · ": "Unverified · ",
+    "未提交删除 · ": "Not submitted · "
+  };
+  const t = (value) => english ? translations[value] ?? value : value;
+  host.lang = english ? "en" : "zh";
   const shadow = host.attachShadow({mode: "open"});
   shadow.innerHTML = `<style>
     :host {
@@ -33,7 +100,7 @@
     .filters { padding:12px 16px 8px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px; }
     .modes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; margin:12px 16px 0; padding:3px;
       background:var(--soft); border-radius:10px; }
-    .modes button { border-color:transparent; background:transparent; white-space:nowrap; padding-inline:4px; }
+    .modes button { border-color:transparent; background:transparent; white-space:normal; line-height:1.15; padding-inline:4px; }
     .modes button[aria-pressed=true] { background:var(--surface); border-color:var(--line); font-weight:650; }
     .footer { flex-wrap:wrap; }
     #selection { flex:1; min-width:0; }
@@ -100,49 +167,49 @@
     #queue li { padding:7px 0; border-top:1px solid var(--line); }
     #status { padding:8px 16px; border-top:1px solid var(--line); font-size:12px; }
   </style>
-  <section aria-label="ChatGPT 对话批量删除">
+  <section aria-label="${t("ChatGPT 对话批量删除")}">
     <header>
-      <h2 title="Beta 0.0.1">批量删除对话</h2>
-      <button id="refresh" class="icon" aria-label="重新加载对话" title="重新加载对话"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.7M20 5v6h-6"/></svg></button>
-      <button id="close" class="icon" aria-label="关闭面板" title="关闭面板"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <h2 title="Beta 0.0.1">${t("批量删除对话")}</h2>
+      <button id="refresh" class="icon" aria-label="${t("重新加载对话")}" title="${t("重新加载对话")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.7M20 5v6h-6"/></svg></button>
+      <button id="close" class="icon" aria-label="${t("关闭面板")}" title="${t("关闭面板")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
     </header>
     <div id="pick">
-      <div class="modes" role="group" aria-label="选择删除对象">
-        <button type="button" data-mode="chat" aria-pressed="true">普通聊天</button>
-        <button type="button" data-mode="session" aria-pressed="false">项目内对话</button>
-        <button type="button" data-mode="project" aria-pressed="false">整个项目</button>
+      <div class="modes" role="group" aria-label="${t("选择删除对象")}">
+        <button type="button" data-mode="chat" aria-pressed="true">${t("普通聊天")}</button>
+        <button type="button" data-mode="session" aria-pressed="false">${t("项目内对话")}</button>
+        <button type="button" data-mode="project" aria-pressed="false">${t("整个项目")}</button>
       </div>
       <div class="filters">
-        <div class="search"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></span><input id="filter" type="search" placeholder="搜索对话标题" aria-label="搜索对话标题"></div>
-        <label class="field" id="projectField" hidden>项目 <select id="project"><option value="">所有项目</option></select></label>
-        <label class="field" id="dateModeField">创建日期 <select id="dateMode">
-          <option value="">不限日期</option><option value="before">早于</option>
-          <option value="after">晚于</option><option value="range">日期范围</option>
+        <div class="search"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></span><input id="filter" type="search" placeholder="${t("搜索对话标题")}" aria-label="${t("搜索对话标题")}"></div>
+        <label class="field" id="projectField" hidden>${t("项目")} <select id="project"><option value="">${t("所有项目")}</option></select></label>
+        <label class="field" id="dateModeField">${t("创建日期")} <select id="dateMode">
+          <option value="">${t("不限日期")}</option><option value="before">${t("早于")}</option>
+          <option value="after">${t("晚于")}</option><option value="range">${t("日期范围")}</option>
         </select></label>
         <div class="dates" id="dateFields" hidden>
-          <label id="fromLabel" class="field" hidden><span id="fromText">从</span><input id="from" type="date"></label>
-          <label id="toLabel" class="field" hidden><span id="toText">到</span><input id="to" type="date"></label>
-          <button id="clearDates" class="quiet" hidden>清除</button>
+          <label id="fromLabel" class="field" hidden><span id="fromText">${t("从")}</span><input id="from" type="date"></label>
+          <label id="toLabel" class="field" hidden><span id="toText">${t("到")}</span><input id="to" type="date"></label>
+          <button id="clearDates" class="quiet" hidden>${t("清除")}</button>
         </div>
         <p id="dateHint" class="note" role="status" hidden></p>
       </div>
       <div class="toolbar">
-        <p id="count"></p><button id="stopScan" class="quiet" hidden>停止加载</button><button id="all" class="quiet">全选</button>
+        <p id="count"></p><button id="stopScan" class="quiet" hidden>${t("停止加载")}</button><button id="all" class="quiet">${t("全选")}</button>
       </div>
       <p id="scanStatus" role="status"></p>
-      <ul id="list" aria-label="对话列表"></ul>
+      <ul id="list" aria-label="${t("对话列表")}"></ul>
       <p id="empty" class="empty" hidden></p>
       <div class="footer">
-        <p id="selection"></p><button id="clear" class="quiet" hidden>取消选择</button>
-        <button id="preview" class="danger">批量删除</button>
+        <p id="selection"></p><button id="clear" class="quiet" hidden>${t("取消选择")}</button>
+        <button id="preview" class="danger">${t("批量删除")}</button>
       </div>
     </div>
     <div id="review" hidden>
       <p id="summary"></p>
-      <p class="note" id="warning">删除后无法恢复。</p>
-      <ul id="queue" aria-label="待删除对话"></ul>
+      <p class="note" id="warning">${t("删除后无法恢复。")}</p>
+      <ul id="queue" aria-label="${t("待删除对话")}"></ul>
       <div class="footer">
-        <button id="back">返回</button><button id="run" class="danger">确认删除</button><button id="stop" hidden>停止删除</button>
+        <button id="back">${t("返回")}</button><button id="run" class="danger">${t("确认删除")}</button><button id="stop" hidden>${t("停止删除")}</button>
       </div>
     </div>
     <p id="status" role="status"></p>
@@ -253,7 +320,7 @@
   function projectNameFor(id) {
     if (projectNames.has(id)) return projectNames.get(id);
     if (!unnamedProjects.has(id)) unnamedProjects.set(id, unnamedProjects.size + 1);
-    return "名称未识别的项目 " + unnamedProjects.get(id);
+    return t("名称未识别的项目 ") + unnamedProjects.get(id);
   }
 
   function localDate(value) {
@@ -329,7 +396,7 @@
     for (const id of selected) if (!items.has(id) || items.get(id).unavailable) selected.delete(id);
     const select = ui("project");
     const priorProject = select.value;
-    select.replaceChildren(new Option("所有项目", ""));
+    select.replaceChildren(new Option(t("所有项目"), ""));
     const projects = new Map(projectNames);
     for (const item of items.values()) if (item.project && !projects.has(item.project)) projects.set(item.project, item.projectName);
     for (const [id, name] of projects) select.add(new Option(name, id));
@@ -340,7 +407,7 @@
       select.value = projects.has(priorProject) ? priorProject : "";
       if (!activeProject) previousActiveProject = "";
     }
-    if (!keepStatus) ui("status").textContent = items.size ? "" : "暂时没有找到对话。请确认已登录并打开左侧历史列表。";
+    if (!keepStatus) ui("status").textContent = items.size ? "" : t("暂时没有找到对话。请确认已登录并打开左侧历史列表。");
     renderList();
   }
 
@@ -379,17 +446,17 @@
     const {mode, from, to} = dateBounds();
     ui("fromLabel").hidden = !["after", "range"].includes(mode);
     ui("toLabel").hidden = !["before", "range"].includes(mode);
-    ui("fromText").textContent = mode === "after" ? "晚于" : "从";
-    ui("toText").textContent = mode === "before" ? "早于" : "到";
+    ui("fromText").textContent = mode === "after" ? t("晚于") : t("从");
+    ui("toText").textContent = mode === "before" ? t("早于") : t("到");
     ui("dateFields").hidden = ui("clearDates").hidden = !mode;
     const hint = ui("dateHint");
     const scopedItems = [...items.values()].filter((item) => item.kind === view && (view !== "session" || !ui("project").value || item.project === ui("project").value));
     const missing = scopedItems.filter((item) => !dateFor(item)).length;
     const invalid = from && to && from > to;
     hint.hidden = !(invalid || ((from || to) && missing));
-    hint.textContent = invalid ? "起始日期不能晚于结束日期。" : scopedItems.length === missing
-      ? "这些对话没有创建日期。"
-      : "没有创建日期的对话已隐藏。";
+    hint.textContent = invalid ? t("起始日期不能晚于结束日期。") : scopedItems.length === missing
+      ? t("这些对话没有创建日期。")
+      : t("没有创建日期的对话已隐藏。");
   }
 
   function filtered() {
@@ -409,7 +476,7 @@
   function renderList() {
     ui("projectField").hidden = view !== "session";
     ui("dateModeField").hidden = view === "project";
-    ui("filter").placeholder = view === "project" ? "搜索项目" : "搜索对话标题";
+    ui("filter").placeholder = view === "project" ? t("搜索项目") : t("搜索对话标题");
     ui("filter").setAttribute("aria-label", ui("filter").placeholder);
     updateDates();
     const matches = filtered();
@@ -417,7 +484,7 @@
     const empty = ui("empty");
     list.hidden = !matches.length;
     empty.hidden = !!matches.length || (!!scan && !items.size);
-    empty.textContent = view === "project" ? "没有找到项目" : view === "session" && ![...items.values()].some((item) => item.kind === "session") ? "打开项目查看其中的对话" : "没有符合条件的对话";
+    empty.textContent = view === "project" ? t("没有找到项目") : view === "session" && ![...items.values()].some((item) => item.kind === "session") ? t("打开项目查看其中的对话") : t("没有符合条件的对话");
     drag = null;
     list.replaceChildren();
     for (const [index, item] of matches.entries()) {
@@ -436,8 +503,8 @@
       const text = document.createElement("span");
       text.className = "row-text";
       text.textContent = item.title;
-      const metadata = item.kind === "project" ? [item.unavailable ? "项目 · 暂无法删除" : "项目"] :
-        [item.kind === "session" ? "项目内对话" : "", item.projectName, dateFor(item)].filter(Boolean);
+      const metadata = item.kind === "project" ? [item.unavailable ? t("项目 · 暂无法删除") : t("项目")] :
+        [item.kind === "session" ? t("项目内对话") : "", item.projectName, dateFor(item)].filter(Boolean);
       if (metadata.length) {
         const meta = document.createElement("span");
         meta.className = "meta";
@@ -451,8 +518,8 @@
       const grip = document.createElement("button");
       grip.type = "button";
       grip.className = "grip";
-      grip.setAttribute("aria-label", "拖动连续选择");
-      grip.title = "拖动选中多条";
+      grip.setAttribute("aria-label", t("拖动连续选择"));
+      grip.title = t("拖动选中多条");
       grip.textContent = "⠿";
       grip.tabIndex = -1;
       grip.disabled = !!item.unavailable;
@@ -514,18 +581,23 @@
     });
   }
 
+  function itemUnit(view, count) {
+    if (english && count === 1) return view === "project" ? " project" : " chat";
+    return view === "project" ? t(" 个项目") : t(" 条对话");
+  }
+
   function renderCount(matches) {
     const hiddenCount = selected.size - matches.filter(({id}) => selected.has(id)).length;
     const total = [...items.values()].filter((item) => item.kind === view).length;
-    const unit = view === "project" ? " 个项目" : " 条对话";
+    const unit = itemUnit(view, total);
     ui("count").textContent = (matches.length === total ? total : matches.length + " / " + total) + unit;
-    ui("selection").textContent = selected.size ? "已选 " + selected.size + " 条" +
-      (hiddenCount ? "（" + hiddenCount + " 条不在当前结果）" : "") : "";
+    ui("selection").textContent = selected.size ? (english ? selected.size + " selected" : "已选 " + selected.size + " 条") +
+      (hiddenCount ? (english ? " (" + hiddenCount + " outside these results)" : "（" + hiddenCount + " 条不在当前结果）") : "") : "";
     ui("preview").disabled = !selected.size;
-    ui("preview").textContent = view === "project" ? (selected.size ? "删除 " + selected.size + " 个项目" : "删除项目") : (selected.size ? "批量删除（" + selected.size + " 条）" : "批量删除");
+    ui("preview").textContent = view === "project" ? (selected.size ? (english ? "Delete projects (" + selected.size + ")" : "删除 " + selected.size + " 个项目") : t("删除项目")) : (selected.size ? (english ? "Bulk delete (" + selected.size + ")" : "批量删除（" + selected.size + " 条）") : t("批量删除"));
     const selectable = matches.filter((item) => !item.unavailable);
     const allSelected = selectable.length > 0 && selectable.every(({id}) => selected.has(id));
-    ui("all").textContent = allSelected ? "取消全选" : "全选";
+    ui("all").textContent = allSelected ? t("取消全选") : t("全选");
     ui("all").disabled = !selectable.length;
     ui("clear").hidden = !selected.size;
   }
@@ -599,8 +671,8 @@
   }
 
   function assertReady() {
-    if (stopped) throw new Error("已停止删除");
-    if (!samePage()) throw new Error("页面或侧栏已变化");
+    if (stopped) throw new Error(t("已停止删除"));
+    if (!samePage()) throw new Error(t("页面或侧栏已变化"));
   }
 
   async function waitFor(check, message, {settling = false} = {}) {
@@ -620,11 +692,11 @@
     const link = candidates.includes(item.node) ? item.node : candidates.length === 1 ? candidates[0] : null;
     const currentProject = item.kind !== "project" && link && (projectId(new URL(link.href).pathname) || projectScope(link, sourceNav) ||
       (sourceNav.matches("main, [role=main]") ? projectId(location.pathname) : ""));
-    if (link && item.kind !== "project" && currentProject !== item.project) throw new Error("对话归属已变化，请重新加载对话。");
+    if (link && item.kind !== "project" && currentProject !== item.project) throw new Error(t("对话归属已变化，请重新加载对话。"));
     const trigger = link && findTrigger(link, sourceNav, item.kind);
-    const object = item.kind === "project" ? "项目" : "对话";
-    if (!trigger || targetTitle(link, item.kind) !== item.title) throw new Error("无法定位待删除的" + object);
-    if (visibleMatches(menuSelector).length || visibleMatches(dialogSelector).length) throw new Error("网页仍有菜单或弹窗打开");
+    const object = item.kind === "project" ? (english ? "project" : "项目") : t("对话");
+    if (!trigger || targetTitle(link, item.kind) !== item.title) throw new Error((english ? "Could not locate the selected " : "无法定位待删除的") + object);
+    if (visibleMatches(menuSelector).length || visibleMatches(dialogSelector).length) throw new Error(t("网页仍有菜单或弹窗打开"));
     link.scrollIntoView?.({block: "nearest", inline: "nearest"});
     // Menu triggers may open on pointerdown and cancel the ensuing click.
     const pointer = new PointerEvent("pointerdown", {bubbles: true, cancelable: true, button: 0, pointerType: "mouse"});
@@ -645,7 +717,7 @@
       if ((controlled && candidate.id !== controlled) || (labelled && !labelled.split(/\s+/).includes(trigger.id))) return null;
       foundMenu = true;
       return onlyDelete(candidate, '[role="menuitem"], [role="menuitemcheckbox"], button, [role="button"], [data-testid]', item.kind);
-    }, () => foundMenu ? "在" + object + "菜单中找不到「删除」" : "未打开" + object + "菜单");
+    }, () => foundMenu ? (english ? "No Delete option in the " + object + " menu" : "在" + object + "菜单中找不到「删除」") : (english ? "Could not open the " + object + " menu" : "未打开" + object + "菜单"));
     assertReady();
     action.click();
     const confirm = await waitFor(() => {
@@ -656,7 +728,7 @@
       if (isProjectDialog && item.kind !== "project") return null;
       const button = onlyDelete(dialog, 'button, [role="button"]', item.kind, true, isProjectDialog);
       return button && {dialog: dialogs[0], button};
-    }, "无法识别" + object + "的删除确认按钮");
+    }, (english ? "Could not identify the " + object + " confirmation button" : "无法识别" + object + "的删除确认按钮"));
     assertReady();
     const initialUrl = pageUrl;
     item.submitted = true;
@@ -680,14 +752,14 @@
         sourceNav = replacements[0];
       }
       return item.kind === "project" ? !matchingTargets(document, item).some(visible) : !matchingTargets(sourceNav, item).length;
-    }, "请在左侧列表确认" + object + "是否已删除", {settling: true});
+    }, (english ? "Check the sidebar to verify whether the " + object + " was deleted" : "请在左侧列表确认" + object + "是否已删除"), {settling: true});
     pageUrl = location.href;
   }
 
   function pauseOnInteraction(event) {
     if (event.isTrusted && !event.composedPath().includes(host)) {
       stopped = true;
-      ui("status").textContent = "检测到你在操作网页，正在停止删除。";
+      ui("status").textContent = t("检测到你在操作网页，正在停止删除。");
       event.preventDefault();
       event.stopImmediatePropagation();
     }
@@ -721,7 +793,7 @@
     function step() {
       if (scan !== job) return;
       if (host.hidden || job.url !== location.href || !ui("review").hidden) {
-        stopScan("已停止加载对话。");
+        stopScan(t("已停止加载对话。"));
         return;
       }
       if (drag) {
@@ -741,9 +813,9 @@
       const signature = [items.size, scroller?.scrollHeight, scroller?.scrollTop].join("/");
       job.stable = signature === job.previous && before === (scroller?.scrollTop ?? 0) ? job.stable + 1 : 0;
       job.previous = signature;
-      ui("scanStatus").textContent = "正在加载…";
+      ui("scanStatus").textContent = t("正在加载…");
       if (job.stable >= 5 || Date.now() - job.started > 120000) {
-        stopScan(items.size ? "" : "未找到对话，请打开左侧历史列表。");
+        stopScan(items.size ? "" : t("未找到对话，请打开左侧历史列表。"));
       } else {
         job.timer = setTimeout(step, 450);
       }
@@ -775,7 +847,7 @@
     host.hidden = true;
   };
   ui("refresh").onclick = startScan;
-  ui("stopScan").onclick = () => stopScan("已停止加载对话。");
+  ui("stopScan").onclick = () => stopScan(t("已停止加载对话。"));
   ui("filter").oninput = renderList;
   for (const id of ["dateMode", "from", "to", "project"]) ui(id).onchange = renderList;
   ui("clearDates").onclick = () => {
@@ -829,7 +901,7 @@
     batch = [...selected].map((id) => items.get(id)).filter((item) => item && !item.unavailable);
     if (!batch.length) return;
     if (batch.some(({nav}) => !nav.isConnected)) {
-      ui("status").textContent = "对话列表已变化。请重新加载对话后再试。";
+      ui("status").textContent = t("对话列表已变化。请重新加载对话后再试。");
       return;
     }
     pageUrl = location.href;
@@ -846,10 +918,10 @@
       queue.append(row);
       item.result = text;
     }
-    const unit = view === "project" ? " 个项目" : " 条对话";
-    ui("summary").textContent = "确认删除 " + batch.length + unit + "？";
-    ui("warning").textContent = view === "project" ? "项目中的对话、指令和仅存于项目中的文件也会被删除。" : "删除后无法恢复。";
-    ui("run").textContent = "确认删除 " + batch.length + (view === "project" ? " 个项目" : " 条");
+    const unit = itemUnit(view, batch.length);
+    ui("summary").textContent = (english ? "Delete " : "确认删除 ") + batch.length + unit + (english ? "?" : "？");
+    ui("warning").textContent = view === "project" ? t("项目中的对话、指令和仅存于项目中的文件也会被删除。") : t("删除后无法恢复。");
+    ui("run").textContent = english ? "Confirm deletion (" + batch.length + unit + ")" : "确认删除 " + batch.length + (view === "project" ? " 个项目" : " 条");
     ui("status").textContent = "";
     ui("run").disabled = false;
     ui("review").hidden = false;
@@ -866,7 +938,7 @@
   ui("stop").onclick = () => {
     stopped = true;
     ui("stop").disabled = true;
-    ui("status").textContent = "正在停止，已提交的删除可能仍会完成。";
+    ui("status").textContent = t("正在停止，已提交的删除可能仍会完成。");
   };
   ui("run").onclick = async () => {
     if (running) return;
@@ -887,31 +959,31 @@
       for (const item of batch) {
         sourceNav = item.nav;
         if (stopped || !samePage()) {
-          reason = stopped ? "已停止删除" : "页面或侧栏已变化";
+          reason = stopped ? t("已停止删除") : t("页面或侧栏已变化");
           break;
         }
         attempted++;
-        ui("status").textContent = `正在删除第 ${attempted} / ${batch.length} 条。`;
+        ui("status").textContent = english ? "Deleting " + attempted + " of " + batch.length + "…" : `正在删除第 ${attempted} / ${batch.length} 条。`;
         try {
           await remove(item);
           selected.delete(item.id);
           deleted++;
-          item.result.textContent = `已删除 · ${item.title}`;
+          item.result.textContent = t("已删除 · ") + item.title;
         } catch (error) {
           reason = error.message;
           submitted = !!item.submitted;
-          item.result.textContent = (submitted ? "未确认结果 · " : "未提交删除 · ") + item.title;
+          item.result.textContent = (submitted ? t("未确认结果 · ") : t("未提交删除 · ")) + item.title;
           break;
         }
       }
     } finally {
       for (const type of events) document.removeEventListener(type, pauseOnInteraction, true);
-      for (const item of batch.slice(attempted)) item.result.textContent = `待处理 · ${item.title}`;
+      for (const item of batch.slice(attempted)) item.result.textContent = t("待处理 · ") + item.title;
       running = false;
       ui("stop").hidden = true;
       ui("back").disabled = false;
       ui("close").disabled = false;
-      ui("status").textContent = `已删除 ${deleted} 条 · 未确认 ${submitted ? 1 : 0} 条 · 未提交 ${attempted - deleted - Number(submitted)} 条 · 待处理 ${batch.length - attempted} 条。${reason ? `${reason}。` : ""}`;
+      ui("status").textContent = english ? "Deleted: " + deleted + " · Unverified: " + Number(submitted) + " · Not submitted: " + (attempted - deleted - Number(submitted)) + " · Pending: " + (batch.length - attempted) + "." + (reason ? " " + reason : "") : `已删除 ${deleted} 条 · 未确认 ${submitted ? 1 : 0} 条 · 未提交 ${attempted - deleted - Number(submitted)} 条 · 待处理 ${batch.length - attempted} 条。${reason ? `${reason}。` : ""}`;
     }
   };
 

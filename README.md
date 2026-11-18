@@ -1,6 +1,8 @@
-# ChatGPT Bulk Delete
+# ChatGPT Bulk Delete · ChatGPT 批量删除
 
-A Chrome and Edge extension for reviewing and deleting multiple ChatGPT conversations. This is an independent beta project.
+A Chrome and Edge extension for reviewing and deleting multiple ChatGPT conversations. This is an independent beta project. The interface follows your browser language preferences, with Chinese and English available.
+
+一款面向 Chrome 和 Edge 的 ChatGPT 批量删除扩展。支持按标题、日期和项目筛选，勾选后先核对名单，再批量删除普通对话、项目内对话或整个项目。界面随浏览器语言自动切换中英文。当前为独立测试版。
 
 ## Watch the 4K demo
 

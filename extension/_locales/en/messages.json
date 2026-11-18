@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "ChatGPT Bulk Delete"
+  },
+  "extensionDescription": {
+    "message": "Filter, review and delete selected ChatGPT chats and projects."
+  },
+  "openChatGPT": {
+    "message": "Open ChatGPT to use this extension"
+  }
+}

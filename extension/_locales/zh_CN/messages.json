@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "ChatGPT 批量删除"
+  },
+  "extensionDescription": {
+    "message": "筛选、核对并批量删除 ChatGPT 对话和项目。"
+  },
+  "openChatGPT": {
+    "message": "请在 ChatGPT 网页中打开扩展"
+  }
+}

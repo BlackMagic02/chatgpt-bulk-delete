@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT Bulk Delete",
+  "name": "__MSG_extensionName__",
   "version": "0.0.1",
-  "description": "Filter, review and delete selected ChatGPT conversations.",
+  "description": "__MSG_extensionDescription__",
   "permissions": [
     "activeTab",
     "scripting",
     "storage"
   ],
   "action": {
-    "default_title": "ChatGPT Bulk Delete"
+    "default_title": "__MSG_extensionName__"
   },
   "background": {
     "service_worker": "background.js"
@@ -34,5 +34,6 @@
       "run_at": "document_start",
       "world": "MAIN"
     }
-  ]
+  ],
+  "default_locale": "en"
 }
