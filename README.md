@@ -2,6 +2,13 @@
 
 A Chrome and Edge extension for reviewing and deleting multiple ChatGPT conversations. This is an independent beta project.
 
+## Watch the 4K demo
+
+[![Watch the English 4K promo](promo/preview.jpg)](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases/download/v0.0.1-beta/chatgpt-bulk-delete-promo-4k.mp4)
+
+[Watch or download the MP4](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases/download/v0.0.1-beta/chatgpt-bulk-delete-promo-4k.mp4)
+
+
 ## Install the beta
 
 1. Download `chatgpt-bulk-delete-0.0.1-beta.zip` from [Releases](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases) and unzip it.
@@ -15,7 +22,7 @@ Filter by title, project, or creation date, select the items, and review the lis
 
 Dates depend on the metadata available to the ChatGPT page. The extension stores conversation IDs and creation timestamps locally for date filtering. Its scripts run on `chatgpt.com` and use the site's own controls to delete items. The beta depends on the current ChatGPT interface.
 
-The English 4K demo is available in the release assets. Editable Remotion source is in `promo/`.
+Editable Remotion source is in `promo/`.
 
 ## 中文
 
