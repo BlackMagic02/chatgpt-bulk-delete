@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@remotion/cli": "^4.0.545",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.545"
+  },
+  "name": "chatgpt-bulk-delete-promo",
+  "scripts": {
+    "studio": "remotion studio index.jsx",
+    "render": "remotion render index.jsx BulkDeletePromo promo.mp4 --codec=h264"
+  }
+}
