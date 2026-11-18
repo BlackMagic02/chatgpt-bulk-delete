@@ -4,9 +4,9 @@ A Chrome and Edge extension for reviewing and deleting multiple ChatGPT conversa
 
 ## Watch the 4K demo
 
-[![Watch the English 4K promo](promo/preview.jpg)](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases/download/v0.0.1-beta/chatgpt-bulk-delete-promo-4k.mp4)
+https://github.com/user-attachments/assets/738946b2-8fd2-469f-b0b0-2621109756d6
 
-[Watch or download the MP4](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases/download/v0.0.1-beta/chatgpt-bulk-delete-promo-4k.mp4)
+[Download the 4K MP4](https://github.com/BlackMagic02/chatgpt-bulk-delete/releases/download/v0.0.1-beta/chatgpt-bulk-delete-promo-4k.mp4)
 
 
 ## Install the beta
