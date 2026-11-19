@@ -504,7 +504,7 @@
       text.className = "row-text";
       text.textContent = item.title;
       const metadata = item.kind === "project" ? [item.unavailable ? t("项目 · 暂无法删除") : t("项目")] :
-        [item.kind === "session" ? t("项目内对话") : "", item.projectName, dateFor(item)].filter(Boolean);
+        [item.kind === "session" ? t("项目内对话") : "", item.projectName].filter(Boolean);
       if (metadata.length) {
         const meta = document.createElement("span");
         meta.className = "meta";
@@ -546,7 +546,7 @@
   }
 
   function describe(item) {
-    return [item.title, item.projectName, dateFor(item)].filter(Boolean).join(" · ");
+    return [item.title, item.projectName].filter(Boolean).join(" · ");
   }
 
   function selectRange(end) {
